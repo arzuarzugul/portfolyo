@@ -1,13 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./componants/Header";
+import Header from "./components/Header";
 import { ThemeProvider } from "next-themes";
-import {fuchsia} from "tailwindcss"
+import { fuchsia } from "tailwindcss";
 import Script from "next/script";
-
-
-
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,28 +16,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "My Portfolio", // "portfolyo" yerine "Portfolio" yazımını tercih edebilirsiniz
+  title: "My Portfolyo", 
   description: "I am Arzu GÜL. I am a frontend developer.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
-        
-        <div className="min-h-screen relative z-10 px-3  overflow-hidden "> {/* "relativez-10" yerine "relative z-10" */}
+        <div className="min-h-screen relative z-10 px-3  overflow-hidden ">
+          {" "}
+         
           <div className="w-full relative  ">
-           
-            
-          <ThemeProvider attribute="class">
-            {children}
-            </ThemeProvider>
+            <ThemeProvider attribute="class">{children}</ThemeProvider>
           </div>
-          
         </div>
-
-        
       </body>
     </html>
   );

@@ -1,77 +1,80 @@
 "use client";
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Header from './componants/Header'; 
-import { TypeAnimation } from 'react-type-animation';
+import { useEffect, useState } from "react"; // EKLENDİ
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Header from "./components/Header";
+import { TypeAnimation } from "react-type-animation";
 import { FaFacebook, FaTwitter, FaGithub } from "react-icons/fa";
-import Link from 'next/link';
-import Script from 'next/script';
+import Link from "next/link";
+import Script from "next/script";
 
 const Page = () => {
+  const [isTallEnough, setIsTallEnough] = useState(true); // EKLENDİ
+
+  useEffect(() => {
+    const checkHeight = () => setIsTallEnough(window.innerHeight > 700);
+    checkHeight();
+    window.addEventListener("resize", checkHeight);
+    return () => window.removeEventListener("resize", checkHeight);
+  }, []);
+
   return (
-    <div className=' text-xl h-full'>
+    <div className=" text-xl h-full ">
       <Header />
+
+     
       <motion.div
-        className='hidden md:block h-auto absolute top-48 right-10 z-[1]'
+        className="hidden md:block h-auto fixed top-30 right-10 z-[1] cursor-grab"
         transition={{ duration: 0.4 }}
         whileHover={{ y: -10, rotate: 90 }}
         drag
-        dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
       >
-        <Image
-          src="/images/ball-1.svg"
-          alt="Top"
-          width={200}
-          height={300}
-        />
-      </motion.div>
-      <motion.div
-        className='hidden md:block h-auto absolute bottom-10 left-10 z-[1]'
-        transition={{ duration: 0.4 }}
-        whileHover={{ y: -10, rotate: 90 }}
-        drag
-        dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-      >
-        <Image
-          src="/images/ball-2.svg"
-          alt="Top"
-          width={200}
-          height={300}
-        />
+        <Image src="/images/ball-1.svg" alt="Ball Top Right" width={200} height={300} />
       </motion.div>
 
-      <main className='w-full h-full'>
-        <section className='h-full max-w-5xl mx-auto pt-16 md:pt-8'>
-          <div className='flex flex-col items-center justify-center md:items-start'>
-            <h4 className='text-lg text-black-500  !dark:text-white'>
-              <span className='text-2xl font-normal '>
-                Hello,  
-              </span>
-              I'am 
+ 
+      {isTallEnough && (
+        <motion.div
+          className="hidden md:block h-auto fixed bottom-10 left-10 z-[1] cursor-grab"
+          transition={{ duration: 0.4 }}
+          whileHover={{ y: -10, rotate: 90 }}
+          drag
+        >
+          <Image src="/images/ball-2.svg" alt="Ball Bottom Left" width={200} height={300} />
+        </motion.div>
+      )}
+
+
+      <main className="w-full h-full">
+        <section className="h-full max-w-5xl mx-auto pt-16 md:pt-8">
+          <div className="flex flex-col items-center justify-center md:items-start">
+            <h4 className="text-lg text-black-500  !dark:text-white">
+              <span className="text-2xl font-normal ">Hello,</span>
+              I'am
             </h4>
-            <h1 className='mt-5 text-xl font-extrabold tracking-normal text-black-500 uppercase md:text-4xl !dark:text-white'>
+            <h1 className="mt-5 text-xl font-extrabold tracking-normal text-black-500 uppercase md:text-4xl !dark:text-white">
               Arzu GÜL
             </h1>
             {/* TypeAnimation sadece client tarafında render edilsin */}
-            {typeof window !== 'undefined' && (
-              <TypeAnimation 
-                className='mt-5 text-pink-600 '
-                sequence={['Frontend Developer', 1000, 'React Developer', 1000]}
+            {typeof window !== "undefined" && (
+              <TypeAnimation
+                className="mt-5 text-pink-600 "
+                sequence={["Frontend Developer", 1000, "React Developer", 1000]}
                 wrapper="span"
                 speed={30}
-                style={{ fontSize: "1.2em", display: 'inline-block' }}
+                style={{ fontSize: "1.2em", display: "inline-block" }}
                 repeat={Infinity}
               />
             )}
-            <div className='flex gap-5 relative z-10'>
-              <div className='hover:bg-pink-600 mt-4 rounded-full transition-all'>
-                <FaFacebook className='text-2xl hover:scale-110 transition-transform' />
+            <div className="flex gap-5 relative z-10">
+              <div className="hover:bg-pink-600 mt-4 rounded-full transition-all">
+                <FaFacebook className="text-2xl hover:scale-110 transition-transform" />
               </div>
-              <div className='hover:bg-pink-600 mt-4 rounded-full transition-all'>
-                <FaTwitter className='text-2xl hover:scale-110 transition-transform' />
+              <div className="hover:bg-pink-600 mt-4 rounded-full transition-all">
+                <FaTwitter className="text-2xl hover:scale-110 transition-transform" />
               </div>
-              <div className='hover:bg-pink-600 mt-4 rounded-full transition-all'>
-                <FaGithub className='text-2xl hover:scale-110 transition-transform' />
+              <div className="hover:bg-pink-600 mt-4 rounded-full transition-all">
+                <FaGithub className="text-2xl hover:scale-110 transition-transform" />
               </div>
             </div>
           </div>
@@ -96,19 +99,23 @@ const Page = () => {
                     <div className="">
                       <p className="text-sm">
                         <span className="text-pink-300"> {">"} </span> const
-                        techWeb<span className="font-bold text-pink-300">2</span> =
+                        techWeb
+                        <span className="font-bold text-pink-300">2</span> =
                         ["Reactjs", "Nextjs", "Graphql", "Nodejs"];
                       </p>
                       <p className="text-sm">
                         <span className="text-pink-300"> {">"} </span> const
-                        techWeb<span className="font-bold text-pink-300">3</span> =
+                        techWeb
+                        <span className="font-bold text-pink-300">3</span> =
                         ["Solidity", "Web3.js", "Ethers.js"];
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-8 mt-7">
-                    <Link href="/projects" className="transition duration-300">Projects</Link>
-                    <span className="transition duration-300">Youtube</span>
+                    <Link href="/projects" className="transition duration-300 text-pink-300">
+                      Projects
+                    </Link>
+                    <span className="transition duration-300 text-yellow-100">Youtube</span>
                   </div>
                 </code>
               </pre>
